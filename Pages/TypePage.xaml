@@ -1,0 +1,48 @@
+﻿<Page x:Class="AIRPORT.Pages.TypePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:AIRPORT.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="TypePage">
+
+    <Grid Background="White">
+        <TextBlock Text="Данные о самолете:"
+                   HorizontalAlignment="Center"
+                   FontSize="20"/>
+        <StackPanel HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+
+
+            <TextBlock Text="Тип самолета"
+                       FontSize="15"/>
+            <TextBox x:Name="TxbType"
+                     Width="200"/>
+            
+        </StackPanel>
+
+        <StackPanel VerticalAlignment="Bottom"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+
+            <Button x:Name="btnAdd"
+                    Content="Добавить"
+                    Width="150"
+                    Height="40"
+                    FontSize="15"
+                    Margin="0 0 0 0" Click="btnAdd_Click" 
+                    />
+            <Button x:Name="btnView"
+                    Content="Таблица"
+                    Width="150"
+                    Height="40"
+                    FontSize="15"
+                    Margin="20 0 0 0" Click="btnView_Click"
+                    />
+
+        </StackPanel>
+    </Grid>
+</Page>

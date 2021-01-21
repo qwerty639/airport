@@ -1,0 +1,359 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище AIRPORTModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DATE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DEPARTUREDATE" Type="datetime" Nullable="false" />
+          <Property Name="DESTINATIONDATE" Type="datetime" Nullable="false" />
+          <Property Name="IDPATH" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PATH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DISTANCE" Type="int" Nullable="false" />
+          <Property Name="DEPARTURE" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="DESTINATION" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="IDTYPE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="PLANE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PLACE" Type="nvarchar" MaxLength="30" Nullable="false" />
+          <Property Name="SPEED" Type="int" Nullable="false" />
+          <Property Name="IDTYPE" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TICKETS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SELLTICKETS" Type="int" Nullable="false" />
+          <Property Name="IDPATH" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TYPE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TYPE" Type="nvarchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_DATE_IDPATH_PATH_ID">
+          <End Role="PATH" Type="Self.PATH" Multiplicity="1" />
+          <End Role="DATE" Type="Self.DATE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PATH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DATE">
+              <PropertyRef Name="IDPATH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PATH_IDTYPE_TYPE_ID">
+          <End Role="TYPE" Type="Self.TYPE" Multiplicity="1" />
+          <End Role="PATH" Type="Self.PATH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PATH">
+              <PropertyRef Name="IDTYPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PLANE_IDTYPE_TYPE_ID">
+          <End Role="TYPE" Type="Self.TYPE" Multiplicity="1" />
+          <End Role="PLANE" Type="Self.PLANE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PLANE">
+              <PropertyRef Name="IDTYPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TICKETS_IDPATH_PATH_ID">
+          <End Role="PATH" Type="Self.PATH" Multiplicity="1" />
+          <End Role="TICKETS" Type="Self.TICKETS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PATH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TICKETS">
+              <PropertyRef Name="IDPATH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище AIRPORTModelContainer">
+          <EntitySet Name="DATE" EntityType="Self.DATE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PATH" EntityType="Self.PATH" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PLANE" EntityType="Self.PLANE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TICKETS" EntityType="Self.TICKETS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TYPE" EntityType="Self.TYPE" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_DATE_IDPATH_PATH_ID" Association="Self.FK_DATE_IDPATH_PATH_ID">
+            <End Role="PATH" EntitySet="PATH" />
+            <End Role="DATE" EntitySet="DATE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PATH_IDTYPE_TYPE_ID" Association="Self.FK_PATH_IDTYPE_TYPE_ID">
+            <End Role="TYPE" EntitySet="TYPE" />
+            <End Role="PATH" EntitySet="PATH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PLANE_IDTYPE_TYPE_ID" Association="Self.FK_PLANE_IDTYPE_TYPE_ID">
+            <End Role="TYPE" EntitySet="TYPE" />
+            <End Role="PLANE" EntitySet="PLANE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TICKETS_IDPATH_PATH_ID" Association="Self.FK_TICKETS_IDPATH_PATH_ID">
+            <End Role="PATH" EntitySet="PATH" />
+            <End Role="TICKETS" EntitySet="TICKETS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="AIRPORTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DATE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DEPARTUREDATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DESTINATIONDATE" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IDPATH" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PATH" Relationship="Self.FK_DATE_IDPATH_PATH_ID" FromRole="DATE" ToRole="PATH" />
+        </EntityType>
+        <EntityType Name="PATH">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DISTANCE" Type="Int32" Nullable="false" />
+          <Property Name="DEPARTURE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DESTINATION" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDTYPE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DATE" Relationship="Self.FK_DATE_IDPATH_PATH_ID" FromRole="PATH" ToRole="DATE" />
+          <NavigationProperty Name="TYPE" Relationship="Self.FK_PATH_IDTYPE_TYPE_ID" FromRole="PATH" ToRole="TYPE" />
+          <NavigationProperty Name="TICKETS" Relationship="Self.FK_TICKETS_IDPATH_PATH_ID" FromRole="PATH" ToRole="TICKETS" />
+        </EntityType>
+        <EntityType Name="PLANE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PLACE" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SPEED" Type="Int32" Nullable="false" />
+          <Property Name="IDTYPE" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="TYPE" Relationship="Self.FK_PLANE_IDTYPE_TYPE_ID" FromRole="PLANE" ToRole="TYPE" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TICKETS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SELLTICKETS" Type="Int32" Nullable="false" />
+          <Property Name="IDPATH" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PATH" Relationship="Self.FK_TICKETS_IDPATH_PATH_ID" FromRole="TICKETS" ToRole="PATH" />
+        </EntityType>
+        <EntityType Name="TYPE">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TYPE1" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="PATH" Relationship="Self.FK_PATH_IDTYPE_TYPE_ID" FromRole="TYPE" ToRole="PATH" />
+          <NavigationProperty Name="PLANE" Relationship="Self.FK_PLANE_IDTYPE_TYPE_ID" FromRole="TYPE" ToRole="PLANE" />
+        </EntityType>
+        <Association Name="FK_DATE_IDPATH_PATH_ID">
+          <End Role="PATH" Type="Self.PATH" Multiplicity="1" />
+          <End Role="DATE" Type="Self.DATE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PATH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="DATE">
+              <PropertyRef Name="IDPATH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PATH_IDTYPE_TYPE_ID">
+          <End Role="TYPE" Type="Self.TYPE" Multiplicity="1" />
+          <End Role="PATH" Type="Self.PATH" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PATH">
+              <PropertyRef Name="IDTYPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TICKETS_IDPATH_PATH_ID">
+          <End Role="PATH" Type="Self.PATH" Multiplicity="1" />
+          <End Role="TICKETS" Type="Self.TICKETS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="PATH">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="TICKETS">
+              <PropertyRef Name="IDPATH" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PLANE_IDTYPE_TYPE_ID">
+          <End Role="TYPE" Type="Self.TYPE" Multiplicity="1" />
+          <End Role="PLANE" Type="Self.PLANE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TYPE">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="PLANE">
+              <PropertyRef Name="IDTYPE" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="AIRPORTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DATE" EntityType="Self.DATE" />
+          <EntitySet Name="PATH" EntityType="Self.PATH" />
+          <EntitySet Name="PLANE" EntityType="Self.PLANE" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="TICKETS" EntityType="Self.TICKETS" />
+          <EntitySet Name="TYPE" EntityType="Self.TYPE" />
+          <AssociationSet Name="FK_DATE_IDPATH_PATH_ID" Association="Self.FK_DATE_IDPATH_PATH_ID">
+            <End Role="PATH" EntitySet="PATH" />
+            <End Role="DATE" EntitySet="DATE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PATH_IDTYPE_TYPE_ID" Association="Self.FK_PATH_IDTYPE_TYPE_ID">
+            <End Role="TYPE" EntitySet="TYPE" />
+            <End Role="PATH" EntitySet="PATH" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TICKETS_IDPATH_PATH_ID" Association="Self.FK_TICKETS_IDPATH_PATH_ID">
+            <End Role="PATH" EntitySet="PATH" />
+            <End Role="TICKETS" EntitySet="TICKETS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PLANE_IDTYPE_TYPE_ID" Association="Self.FK_PLANE_IDTYPE_TYPE_ID">
+            <End Role="TYPE" EntitySet="TYPE" />
+            <End Role="PLANE" EntitySet="PLANE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище AIRPORTModelContainer" CdmEntityContainer="AIRPORTEntities">
+          <EntitySetMapping Name="DATE">
+            <EntityTypeMapping TypeName="AIRPORTModel.DATE">
+              <MappingFragment StoreEntitySet="DATE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DEPARTUREDATE" ColumnName="DEPARTUREDATE" />
+                <ScalarProperty Name="DESTINATIONDATE" ColumnName="DESTINATIONDATE" />
+                <ScalarProperty Name="IDPATH" ColumnName="IDPATH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PATH">
+            <EntityTypeMapping TypeName="AIRPORTModel.PATH">
+              <MappingFragment StoreEntitySet="PATH">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="DISTANCE" ColumnName="DISTANCE" />
+                <ScalarProperty Name="DEPARTURE" ColumnName="DEPARTURE" />
+                <ScalarProperty Name="DESTINATION" ColumnName="DESTINATION" />
+                <ScalarProperty Name="IDTYPE" ColumnName="IDTYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PLANE">
+            <EntityTypeMapping TypeName="AIRPORTModel.PLANE">
+              <MappingFragment StoreEntitySet="PLANE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="PLACE" ColumnName="PLACE" />
+                <ScalarProperty Name="SPEED" ColumnName="SPEED" />
+                <ScalarProperty Name="IDTYPE" ColumnName="IDTYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="AIRPORTModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TICKETS">
+            <EntityTypeMapping TypeName="AIRPORTModel.TICKETS">
+              <MappingFragment StoreEntitySet="TICKETS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="SELLTICKETS" ColumnName="SELLTICKETS" />
+                <ScalarProperty Name="IDPATH" ColumnName="IDPATH" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TYPE">
+            <EntityTypeMapping TypeName="AIRPORTModel.TYPE">
+              <MappingFragment StoreEntitySet="TYPE">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="TYPE1" ColumnName="TYPE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

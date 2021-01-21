@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8444da311b7343d18277af2e42066c27" Name="Diagram1">
+        <EntityTypeShape EntityType="AIRPORTModel.DATE" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AIRPORTModel.PATH" Width="1.5" PointX="3" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AIRPORTModel.PLANE" Width="1.5" PointX="3" PointY="6.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AIRPORTModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AIRPORTModel.TICKETS" Width="1.5" PointX="5.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="AIRPORTModel.TYPE" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <AssociationConnector Association="AIRPORTModel.FK_DATE_IDPATH_PATH_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="AIRPORTModel.FK_PATH_IDTYPE_TYPE_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="AIRPORTModel.FK_TICKETS_IDPATH_PATH_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="AIRPORTModel.FK_PLANE_IDTYPE_TYPE_ID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
